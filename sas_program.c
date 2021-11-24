@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <windows.h>
 
 
 
@@ -11,7 +11,6 @@
    {
        char first_name[20];
        char last_name [20];
-       char  number [10];
        char  CIN [10];
        float amount;
 
@@ -30,10 +29,7 @@ void CreateAccount(){
 		
         printf("--> enter last name:\n");
 		scanf("%s",TC[AllAccount].last_name);
-		
-        printf("--> enter number of client :\n");
-		scanf("%s",TC[AllAccount].number);
-		
+			
         printf("--> enter cin :\n");
 		scanf("%s",TC[AllAccount].CIN);
 		
@@ -46,7 +42,7 @@ void CreateAccount(){
 void CreateAccounts(){
 	int nbrAccount,i;
 
-    printf("donner nmbre des comptes\n");
+    printf("enter the number of account \n");
     scanf("%d",&nbrAccount);
 	for( i =0;i<nbrAccount;i++){
         printf("-->le compte %d\n",i+1);
@@ -60,7 +56,6 @@ void displayAccounts(){
 		printf("--> affichage compte %d\n",i+1);
 		printf("--> the first name %s \n",TC[i].first_name);
 		printf("--> the last name %s \n",TC[i].last_name);
-		printf("--> the the number %s \n",TC[i].number);
 		printf("--> the the cin %s\n",TC[i].CIN);
 		printf("--> the amount %f \n",TC[i].amount);
 	}
@@ -71,7 +66,6 @@ void displayAccount(int i){
 		printf("--> affichage compte %d\n",i+1);
 		printf("--> the first name %s\n",TC[i].first_name);
 		printf("--> the last name %s\n",TC[i].last_name);
-		printf("--> the number %s \n",TC[i].number);
 		printf("--> the cin %s\n",TC[i].CIN);
 		printf("--> the amount %f\n",TC[i].amount);
 	
@@ -134,8 +128,6 @@ void trie_Descendant( ) {
     }
 }
 
-
-
 //********************************function Ascendant than figure***************************************************
 void trie_asup(float figure) {
 	int i;
@@ -179,16 +171,16 @@ void trieLoyalty() {
         for(i=0;i<3;i++)
         {
             TC[i].amount+=TC[i].amount*(1.3/100);
-        
-        }displayAccounts();
+        }
+		displayAccounts();
 }
-// *************** retrait **************
+// ***************************************** retrait ***************************************************
 
 void Retrait ()
 {
     char CIN[10];
     int  withdrawal =0;
-    printf("3tini cin ");
+    printf("enter u're cin \n");
   scanf("%s",CIN);
     if(SearshByCin(CIN)>=0){
      printf("enter the sum of withdrawal DH : \n");
@@ -213,10 +205,11 @@ void Retrait ()
     }
  }
 }
+//****************************************function depot **************************************************
 void Depot (){
      char CIN[10];
     int deposit=0;
-     printf("3tini cin ");
+     printf("enter the cin \n");
   scanf("%s",CIN);
     if(SearshByCin(CIN)>=0)
     {
@@ -239,19 +232,38 @@ void Depot (){
     
     }
 }
+//***************************************************function fordelay pour loading **********************************************************
+void fordelay(int j){
+	int i,k;
+	for(i=0;i<j;i++)
+	k=i;
+	
+}
 int main()
 {
     // VARIABLES ===========================================================================================
-                    
+                
+	system("color 40");	// change color of bg
+	
      int choice ,i , npr,found;
-       char CIN[10];            
-                   
-        do
+       char CIN[10];    
+	   //passwooooooooooord        
+        char pass[10],pwd[10]="sharifa" ;
+		printf(" \n Enter the password \n");
+		scanf("%s",pass);
+		if(strcmp(pass,pwd)==0)  
+		{
+			printf("password match \n loading\n");
+			for(i=0;i<=6;i++){
+				fordelay(100000000);
+				printf(".");
+			}
+			do
         {
             do
             {
              // Main ==============================================================================
-                printf("=========================== Main =============================\n");
+                printf("\n=========================== Main =============================\n");
 
                 printf("1 => Create banck account \n");
                 printf("2 => Create a lot of banck account \n");
@@ -321,6 +333,7 @@ int main()
                             scanf("%d", &choice_display);
 
                         }while(choice_display <1 || choice_display>5);
+                        // case Search by cin
                             if(choice_display==1)
 			                {
                                 printf("Enter a CIN  to search: \n ");
@@ -329,26 +342,26 @@ int main()
                                       if(ret>=0){
                                           displayAccount(ret);
                                       } else
-                                          printf("malkaynx");
+                                          printf("not found \n");
                                           
-                            }  
+                            }  //trie Ascendant
                             else if(choice_display==2){
                                 trie_Ascendant();
                                 
                                 displayAccounts();
-                            }
+                            }  // trie descendant
                             else if(choice_display==3){
 
                                 trie_Descendant();
                                 displayAccounts();
-                            }
+                            } // trie Ascendant par valeur
                             else if (choice_display==4){
                                 float figure;
                                      printf("enter a figure \n");
                                     scanf("%f",&figure);
                                      trie_asup(figure);
                             }
-                                
+                                // trie descendant par valeur
                             else if (choice_display==5)
                             {
                                 float figure;
@@ -362,9 +375,10 @@ int main()
 			        break;
                             
                     case 5: 
+	    		// fidelisation
                     trieLoyalty();
                     break;
-                    
+                    // quiter app
                     case 6:
                     exit(0);
                     break;
@@ -374,6 +388,8 @@ int main()
                     
                 }
 				}while(choice !=6);
+		}    
+        
             return 0;
 }
 
