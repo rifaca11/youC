@@ -204,6 +204,8 @@ void Retrait ()
 
     }
  }
+ else
+ printf("not found \n");
 }
 //****************************************function depot **************************************************
 void Depot (){
@@ -225,12 +227,11 @@ void Depot (){
         }
             
     }while (deposit<0 );
-    if (deposit>TC[0].amount) // deposit superior than amount 
-            printf(" u're amount is not enough to deposit \n");
-    else
     TC[0].amount= TC[0].amount+deposit;
     
     }
+    else 
+    printf("not found \n");
 }
 //***************************************************function fordelay pour loading **********************************************************
 void fordelay(int j){
@@ -392,4 +393,3 @@ int main()
         
             return 0;
 }
-
